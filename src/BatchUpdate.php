@@ -19,16 +19,21 @@ class BatchUpdate implements BatchUpdateInterface
             return -1;
         }
 
-        $rowValues = [];
-        foreach ($values as $item) {
-            $rowValues[] = "ROW(?, ?, ?)";
-        }
-        $rowValues = implode(',', $rowValues);
-
-        $tableName = $model->getTable();
-        $fields = array_map(function ($item) {
+        $questionMarks = $rowValues = [];
+        
+        $fields = array_map(function ($item) use (&$questionMarks) {
+            $questionMarks[] = '?';
             return "'$item'";
         }, $values[0]);
+        
+        $questionMarks = implode(',', $questionMarks);
+
+        foreach ($values as $item) {
+            $rowValues[] = "ROW(" . $questionMarks . ")";
+        }
+
+        $rowValues = implode(',', $rowValues);
+        $tableName = $model->getTable();
 
         $valuesBinding = [];
         foreach ($values as $item) {
