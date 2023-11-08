@@ -1,0 +1,33 @@
+{
+    "name": "quangpv/fast-bulk-update",
+    "description": "fast bulk update in laravel",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "quangpv"
+        }
+    ],
+    "require": {
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.3@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Quangpv\\BatchUpdate\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Quangpv\\BatchUpdate\\BatchUpdateServiceProvider"
+            ],
+            "aliases": {
+                "BatchUpdate": "Quangpv\\BatchUpdate\\BatchUpdateFacade"
+            }
+        }
+    },
+    "minimum-stability": "dev"
+}
