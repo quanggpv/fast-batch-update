@@ -39,8 +39,8 @@ $value = [
 ];
 
 // We will find the records by their IDs and update them.
-$indexes = ['id']; // single key
-// $indexes = ['code', 'id']; // composite key
+$indexes = ['id']; // primary key
+// $indexes = ['code', 'id']; // composite primary key
 
 $affectedRows = BatchUpdate::execute($userInstance, $value, $indexes);
 ```
@@ -70,7 +70,7 @@ I took inspiration from Laravel's 'upsert' function, but removed the 'insert' fu
 > [!IMPORTANT]
 >  If this package has been helpful to you, please give me a star. Thank you! :D
 
-# Referrences
+# References
 <br>
 https://dev.mysql.com/doc/refman/8.0/en/insert-on-duplicate.html
 <br>
