@@ -70,7 +70,7 @@ I took inspiration from Laravel's 'upsert' function, but removed the 'insert' fu
 
 # Referrences
 <br>
-https://dev.mysql.com/.../8.0/en/insert-on-duplicate.html
+https://dev.mysql.com/doc/refman/8.0/en/insert-on-duplicate.html
 <br>
 <br>
 https://laravel.com/docs/10.x/eloquent#upserts
