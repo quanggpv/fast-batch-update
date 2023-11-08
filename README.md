@@ -16,7 +16,9 @@ This package currently supports bulk updates ONLY IN MYSQL and is compatible wit
 
 
 # Install
-`composer require quangpv/fast-bulk-update`
+```
+composer require quangpv/fast-bulk-update
+```
 
 # Example Usage
 
@@ -25,7 +27,7 @@ use App\Models\User;
 
 $userInstance = App::make(User::class);
 
-$value = [
+$values = [
      [
          'id' => 1,
          'code' => 'UC01',
@@ -42,7 +44,7 @@ $value = [
 $indexes = ['id']; // primary key
 // $indexes = ['code', 'id']; // composite primary key
 
-$affectedRows = BatchUpdate::execute($userInstance, $value, $indexes);
+$affectedRows = BatchUpdate::execute($userInstance, $values, $indexes);
 ```
 
 > [!WARNING]
