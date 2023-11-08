@@ -1,4 +1,4 @@
-This package currently supports bulk updates ONLY IN MYSQL and is compatible with Laravel version 8.
+This package currently supports bulk updates ONLY IN MYSQL and is compatible with Laravel version 8 and above
 
 <br>
 
@@ -50,7 +50,9 @@ $affectedRows = BatchUpdate::execute($userInstance, $value, $indexes);
 
 # Other option
 <br>
-If you wanna update on fields that are not primary or unique indexes, you can refer to my approach here https://github.com/quanggpv/laravel-upsert-improved.
+If you wanna update on fields that are not primary or unique indexes, you can refer to my approach here 
+<br>
+https://github.com/quanggpv/laravel-upsert-improved.
 <br>
 
 <br>
