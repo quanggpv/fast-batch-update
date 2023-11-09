@@ -14,7 +14,7 @@ class MariaDB implements BatchUpdateInterface
      * @param array $indexes
      * @return int
      */
-    public function execute(Model $model, array $values, array $indexes = ['id'])
+    public function execute(Model $model, array $values, array $indexes = ['id'], $updateFields = [])
     {
         if (count($values) <= 0) {
             return -1;
@@ -65,6 +65,6 @@ class MariaDB implements BatchUpdateInterface
             return in_array($valIndexesString, $records);
         });
 
-        return $model->query()->upsert($values, $indexes);
+        $model->query()->upsert($values, $indexes, $updateFields);
     }
 }

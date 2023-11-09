@@ -12,9 +12,10 @@ class Mysql implements BatchUpdateInterface
      * @param Model $model
      * @param array $values
      * @param array $indexes
+     * @param array $updateFields
      * @return int
      */
-    public function execute(Model $model, array $values, array $indexes = ['id'])
+    public function execute(Model $model, array $values, array $indexes = ['id'], array $updateFields = [])
     {
         if (count($values) <= 0) {
             return -1;
@@ -81,6 +82,6 @@ class Mysql implements BatchUpdateInterface
             return in_array($valIndexesString, $records);
         });
 
-        return $model->query()->upsert($values, $indexes);
+        return $model->query()->upsert($values, $indexes, $updateFields);
     }
 }

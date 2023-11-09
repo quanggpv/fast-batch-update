@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 interface BatchUpdateInterface
 {
-    public function execute(Model $model, array $values, array $indexes = ['id']);
+    public function execute(Model $model, array $values, array $indexes = ['id'], array $updateFields = []);
 }

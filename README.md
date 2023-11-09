@@ -1,10 +1,10 @@
-This package currently supports bulk updates ONLY IN MYSQL and is compatible with Laravel version 8.
+This package currently supports bulk updates in MySQL, MariaDB, and PostgreSQL, and it is compatible with Laravel version 8 and above
 
 <br>
 
 - [x] supports MySql
-- [ ] supports MariaDB
-- [ ] supports PortgreSQL
+- [x] supports MariaDB
+- [x] supports PortgreSQL
 
 # Laravel fast bulk update
 
@@ -16,7 +16,9 @@ This package currently supports bulk updates ONLY IN MYSQL and is compatible wit
 
 
 # Install
-`composer require quangpv/fast-bulk-update`
+```
+composer require quangpv/fast-bulk-update
+```
 
 # Example Usage
 
@@ -25,7 +27,7 @@ use App\Models\User;
 
 $userInstance = App::make(User::class);
 
-$value = [
+$values = [
      [
          'id' => 1,
          'code' => 'UC01',
@@ -39,10 +41,13 @@ $value = [
 ];
 
 // We will find the records by their IDs and update them.
-$indexes = ['id']; // single key
-// $indexes = ['code', 'id']; // composite key
+$indexes = ['id']; // primary key
+// $indexes = ['code', 'id']; // composite primary key
 
-$affectedRows = BatchUpdate::execute($userInstance, $value, $indexes);
+$updateFields = ['nickname']; // only update the field `nickname`
+$updateFields = []; // update all fields
+
+$affectedRows = \BatchUpdate::execute($userInstance, $values, $indexes);
 ```
 
 > [!WARNING]
@@ -50,7 +55,9 @@ $affectedRows = BatchUpdate::execute($userInstance, $value, $indexes);
 
 # Other option
 <br>
-If you wanna update on fields that are not primary or unique indexes, you can refer to my approach here https://github.com/quanggpv/laravel-upsert-improved.
+If you wanna update on fields that are not primary or unique indexes, you can refer to my approach here 
+<br>
+https://github.com/quanggpv/laravel-upsert-improved.
 <br>
 
 <br>
@@ -68,9 +75,9 @@ I took inspiration from Laravel's 'upsert' function, but removed the 'insert' fu
 > [!IMPORTANT]
 >  If this package has been helpful to you, please give me a star. Thank you! :D
 
-# Referrences
+# References
 <br>
-https://dev.mysql.com/.../8.0/en/insert-on-duplicate.html
+https://dev.mysql.com/doc/refman/8.0/en/insert-on-duplicate.html
 <br>
 <br>
 https://laravel.com/docs/10.x/eloquent#upserts
