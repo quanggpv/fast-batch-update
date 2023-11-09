@@ -65,6 +65,6 @@ class MariaDB implements BatchUpdateInterface
             return in_array($valIndexesString, $records);
         });
 
-        $model->query()->upsert($values, $indexes, $updateFields);
+        return $model->query()->upsert($values, $indexes, $updateFields);
     }
 }
