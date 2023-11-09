@@ -12,12 +12,17 @@ class MariaDB implements BatchUpdateInterface
      * @param Model $model
      * @param array $values
      * @param array $indexes
+     * @param array $updateFields
      * @return int
      */
-    public function execute(Model $model, array $values, array $indexes = ['id'], $updateFields = [])
+    public function execute(Model $model, array $values, array $indexes = ['id'], array $updateFields = [])
     {
         if (count($values) <= 0) {
             return -1;
+        }
+
+        if ($updateFields === []) {
+            $updateFields = null;
         }
 
         $fieldKeys = array_keys($values[0]);

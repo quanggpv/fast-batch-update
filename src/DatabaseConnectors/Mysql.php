@@ -21,6 +21,10 @@ class Mysql implements BatchUpdateInterface
             return -1;
         }
 
+        if ($updateFields === []) {
+            $updateFields = null;
+        }
+
         $questionMarks = $rowValues = [];
 
         $fields = array_map(function ($item) use (&$questionMarks) {

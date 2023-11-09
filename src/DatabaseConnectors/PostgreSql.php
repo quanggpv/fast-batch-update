@@ -21,6 +21,10 @@ class PostgreSql implements BatchUpdateInterface
             return -1;
         }
 
+        if ($updateFields === []) {
+            $updateFields = null;
+        }
+
         $tableName = $model->getTable();
 
         $tempTableFields = implode(",", array_keys($values[0]));
