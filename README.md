@@ -45,9 +45,9 @@ $indexes = ['id']; // primary key
 // $indexes = ['code', 'id']; // composite primary key
 
 $updateFields = ['nickname']; // only update the field `nickname`
-$updateFields = []; // update all fields
+// $updateFields = []; // update all fields
 
-$affectedRows = \BatchUpdate::execute($userInstance, $values, $indexes);
+$affectedRows = \BatchUpdate::execute($userInstance, $values, $indexes, $updateFields);
 ```
 
 > [!WARNING]
