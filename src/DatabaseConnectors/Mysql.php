@@ -5,6 +5,7 @@ namespace Quangpv\BatchUpdate\DatabaseConnectors;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Quangpv\BatchUpdate\BatchUpdateInterface;
+use Quangpv\BatchUpdate\Exceptions\InvalidValuesLengthException;
 
 class Mysql implements BatchUpdateInterface
 {
@@ -14,11 +15,12 @@ class Mysql implements BatchUpdateInterface
      * @param array $indexes
      * @param array $updateFields
      * @return int
+     * @throws InvalidValuesLengthException
      */
     public function execute(Model $model, array $values, array $indexes = ['id'], array $updateFields = [])
     {
         if (count($values) <= 0) {
-            return -1;
+            throw new InvalidValuesLengthException();
         }
 
         if ($updateFields === []) {
@@ -53,7 +55,7 @@ class Mysql implements BatchUpdateInterface
 
         $tempTableFields = implode(",", array_keys($values[0]));
 
-        $records = $model::query()
+        $records = $model
             ->select("temp_data.*")
             ->join(
                 DB::raw("
@@ -86,6 +88,6 @@ class Mysql implements BatchUpdateInterface
             return in_array($valIndexesString, $records);
         });
 
-        return $model->query()->upsert($values, $indexes, $updateFields);
+        return $model->upsert($values, $indexes, $updateFields);
     }
 }

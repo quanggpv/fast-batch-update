@@ -2,9 +2,9 @@ This package currently supports bulk updates in MySQL, MariaDB, and PostgreSQL, 
 
 <br>
 
-- [x] supports MySql
-- [x] supports MariaDB
-- [x] supports PortgreSQL
+:heavy_check_mark: supports MySql <br>
+:heavy_check_mark: supports MariaDB <br>
+:heavy_check_mark: supports PostgreSQL <br>
 
 # Laravel fast bulk update
 
@@ -25,7 +25,12 @@ composer require quangpv/fast-bulk-update
 ```php
 use App\Models\User;
 
-$userInstance = App::make(User::class);
+$model = App::make(User::class);
+
+// If you wish to modify the database connection, you can set it on your model.
+$model->setConnection('mariadb');
+$model->setConnection('mysql');
+$model->setConnection('pgsql');
 
 $values = [
      [
@@ -47,7 +52,7 @@ $indexes = ['id']; // primary key
 $updateFields = ['nickname']; // only update the field `nickname`
 // $updateFields = []; // update all fields
 
-$affectedRows = \BatchUpdate::execute($userInstance, $values, $indexes, $updateFields);
+$affectedRows = \BatchUpdate::execute($model, $values, $indexes, $updateFields);
 ```
 
 > [!WARNING]
