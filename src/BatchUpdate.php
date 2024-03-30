@@ -4,6 +4,7 @@ namespace Quangpv\BatchUpdate;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 use Quangpv\BatchUpdate\DatabaseConnectors\MariaDB;
 use Quangpv\BatchUpdate\DatabaseConnectors\Mysql;
 use Quangpv\BatchUpdate\DatabaseConnectors\PostgreSql;
@@ -26,22 +27,20 @@ class BatchUpdate
 
         $driver = config("database.connections.{$connection}.driver");
 
+        $database = \DB::connection($connection);
+
         switch ($driver) {
             case 'mysql':
                 // detect mysql or mariadb
-                $results = \DB::connection($connection)->select("SHOW VARIABLES LIKE '%version%';");
-                $isMySql = false;
-                foreach ($results as $row) {
-                    if (preg_match("/mysql/i", $row->Value)) {
-                        $isMySql = true;
-                        break;
-                    }
+                $databaseVersion = $database->getConfig('version') ?? $database->getPdo()->getAttribute(\PDO::ATTR_SERVER_VERSION);
+                $isMariaDb = false;
+                if (Str::of($databaseVersion)->contains('MariaDB')) {
+                    $isMariaDb = true;
                 }
-
-                if ($isMySql) {
-                    $executor = App::make(Mysql::class);
-                } else {
+                if ($isMariaDb) {
                     $executor = App::make(MariaDB::class);
+                } else {
+                    $executor = App::make(Mysql::class);
                 }
                 break;
             case 'pgsql':
